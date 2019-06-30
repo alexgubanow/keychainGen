@@ -43,6 +43,8 @@
 
 //Choose style of your keychain (HashTag,Coin,Shield,Castle coming soon)
 Keychain_Style = "Tag"; //["Classic":Classic, "HashTag":HashTag, "Coin":Coin, "Shield":Shield, "Castle":Castle, "Tag":Round Tag, "Block":Blocky]
+//Choose plate height
+Plate_Height = 3; //[1:50]
 
 /* [Text] */
 
@@ -56,9 +58,6 @@ Font_Style = "write/orbitron.dxf"; //["write/Letters.dxf":Letters, "write/BlackR
 Font_Size = 12; //[1:50]
 //Choose font height
 Font_Height = 2; //[1:50]
-//Choose plate height
-Plate_Height = 3; //[1:50]
-
 
 /////////////////////////
 // Beat it Customizer //
@@ -120,20 +119,15 @@ module coinKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight){
 		translate([0,0,plateHeight/2]) {
 			rotate([-90,0,0]){
 				difference(){					
-					hull() {
-						translate([0,0,FontSize-1]) rotate([90,0,0])
-                        cylinder(r=FontSize,
-                        h=plateHeight, center=true);
-						translate([(len(Text) * FontSize - 3),0,0]) 
-                        rotate([90,0,0]) 
-                        cylinder(r=FontSize,
-                        h=plateHeight, center=true);
-					}
-					translate([0,0,FontSize]) rotate([90,0,0])
+					//translate([0,0,FontSize-1])
+                    rotate([90,0,0])
+                    cylinder(r=FontSize/2*len(Text)+ 3,h=plateHeight, center=true);
+					translate([0,0,FontSize/2*len(Text) - FontSize/2.5 * 2 +2])
+                    rotate([90,0,0])
                     cylinder(r=FontSize/2.5, h=plateHeight + 1, center=true);
 					for ( i = [0 : len(Text) - 1] )	{
 						translate([
-                        (FontSize*i + 3),
+                        -len(Text)*4+(FontSize*i),
                         -Plate_Height,0])
                         rotate([90,0,0])
                         write(Text[i],
@@ -167,7 +161,7 @@ module tagKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight){
                     cylinder(r=FontSize/2.5, h=plateHeight + 1, center=true);
 					for ( i = [0 : len(Text) - 1] )	{
 						translate([
-                        (FontSize*i + 3),
+                        (FontSize*i+FontSize/4),
                         -Plate_Height,0])
                         rotate([90,0,0])
                         write(Text[i],
@@ -182,7 +176,7 @@ module tagKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight){
 	}	
 }
  
-module blockKeychain(Text, FontSize, FontStyle, FontHeight, PlateHeight){
+module blockKeychain(Text, FontSize, FontStyle, FontHeight, PlateHeight, BetweenLetters){
 	if (Text != ""){
 		translate([0,0,plateHeight/2]) {
 			rotate([-90,0,0]){
