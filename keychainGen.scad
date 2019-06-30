@@ -81,75 +81,49 @@ else if(Keychain_Style == "Castle") { castleKeychain(len(Text)); }
 else if(Keychain_Style == "Tag") { tagKeychain(Text, Font_Size, Font_Style, Font_Height, Plate_Height, Letter_Space); }
 else if(Keychain_Style == "Block") { blockKeychain(Text, Font_Size, Font_Style, Font_Height, Plate_Height, Letter_Space);}
 
-module classicKeychain(
-Text,
-FontSize,
-FontStyle,
-PlateHeight,
-TextYoffset,
-LetterSpace){
+module classicKeychain(Text,FontSize,FontStyle,PlateHeight,TextYoffset,LetterSpace){
 	if (Text != "")
 	{
-		translate([0,0,plateHeight/2]) {
-			rotate([-90,0,0]){
-				union() {
-        translate([(FontSize/3 - FontSize/5)/2,0,0]) 
-					difference(){
-		translate([-FontSize/3,0,0])
-        rotate([90,0,0]) 
-        cylinder(r=FontSize/3, h=PlateHeight, $fn=100, center=true);
-		translate([-FontSize/3,0,0]) 
-        rotate([90,0,0])
-        cylinder(r=FontSize/5, h=PlateHeight + 1, center=true);
-        }
-                        translate([(FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace)/2+FontSize/200,0,0]) 
-                        cube([FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace+FontSize/100, PlateHeight,
-                        FontSize/6],
-                        center=true);
-                        translate([FontSize/2,0,0]) 
-					for ( i = [0 : len(Text) - 1] )	{
-						translate([FontSize*i+FontSize*i/50*LetterSpace,0,
-                        FontSize/3 + FontSize/6 + TextYoffset]) 
-                        rotate([90,0,0]) 
-                        write(Text[i],
-                            h=FontSize,
-                            t=PlateHeight,
-                            font=FontStyle,
-                            space=1,
-                            center=true);
-					}
+        rotate([-90,0,0])
+        union() {
+            difference(){
+                translate([-FontSize/3+(FontSize/3 - FontSize/5)/2,0,0])
+                rotate([90,0,0]) 
+                cylinder(r=FontSize/3, h=PlateHeight, $fn=100, center=true);
+                translate([-FontSize/3+(FontSize/3 - FontSize/5)/2,0,0]) 
+                rotate([90,0,0])
+                cylinder(r=FontSize/5, h=PlateHeight + 1, center=true);
+                }
+                translate([(FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace)/2+FontSize/200,0,0]) 
+                cube([FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace+FontSize/100, PlateHeight,FontSize/6],center=true);
+                translate([FontSize/2,0,0]) 
+                for ( i = [0 : len(Text) - 1] )	{
+                    translate([FontSize*i+FontSize*i/50*LetterSpace,0,
+                    FontSize/3 + FontSize/6 + TextYoffset]) 
+                    rotate([90,0,0]) 
+                    write(Text[i], h=FontSize, t=PlateHeight, 
+                    font=FontStyle, space=1, center=true);
+                    }
+               }
     }
-				}
-			}
-		}
-	}	
+}	
 module coinKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight){
-
 	if (Text != ""){
-		translate([0,0,plateHeight/2]) {
-			rotate([-90,0,0]){
-				difference(){					
-					//translate([0,0,FontSize-1])
-                    rotate([90,0,0])
-                    cylinder(r=FontSize/2*len(Text)+ 3,h=plateHeight, center=true);
-					translate([0,0,FontSize/2*len(Text) - FontSize/2.5 * 2 +2])
-                    rotate([90,0,0])
-                    cylinder(r=FontSize/2.5, h=plateHeight + 1, center=true);
-					for ( i = [0 : len(Text) - 1] )	{
-						translate([
-                        -len(Text)*FontSize/3+(FontSize*i),
-                        -Plate_Height,0])
-                        rotate([90,0,0])
-                        write(Text[i],
-                        h=FontSize,
-                        t=Plate_Height+FontHeight,
-                        font=FontStyle,
-                        space=1, center=true);
-					}
-				}
-			}
-		}
-	}	
+        rotate([-90,0,0])
+        difference(){
+            rotate([90,0,0])
+            cylinder(r=FontSize/2*len(Text)+ 3,h=plateHeight, center=true);
+            translate([0,0,FontSize/2*len(Text) - FontSize/2.5 * 2 +2])
+            rotate([90,0,0])
+            cylinder(r=FontSize/2.5, h=plateHeight + 1, center=true);
+            for ( i = [0 : len(Text) - 1] )	{
+                translate([-len(Text)*FontSize/3+(FontSize*i),-Plate_Height,0])
+                rotate([90,0,0])
+                write(Text[i], h=FontSize, t=Plate_Height+FontHeight,
+                font=FontStyle,space=1, center=true);
+            }
+        }	
+    }	
 }	
 module tagKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight,LetterSpace){
 
@@ -189,36 +163,27 @@ module tagKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight,LetterSpac
  
 module blockKeychain(Text, FontSize, FontStyle, FontHeight, PlateHeight, LetterSpace){
 	if (Text != ""){
-		translate([0,0,plateHeight/2]) {
-			rotate([-90,0,0]){
-				union() {
-        translate([(FontSize/3 - FontSize/5)/2,0,0]) 
-					difference(){
-		translate([-FontSize/3,0,0])
-        rotate([90,0,0]) 
-        cylinder(r=FontSize/2.5, h=Plate_Height, $fn=100, center=true);
-		translate([-FontSize/3,0,0])
-        rotate([90,0,0])
-        cylinder(r=FontSize/4.25, h=Plate_Height + 1, center=true);
-        }
-        translate([(FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace)/2+FontSize/200,0,0]) 
-                        cube([FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace+FontSize/100, PlateHeight,
-                        FontSize/2],
-                        center=true);
-                        translate([FontSize/2,0,0]) 
-					for ( i = [0 : len(Text) - 1] )	{
-						translate([FontSize*i+FontSize*i/50*LetterSpace,-FontHeight/2+Plate_Height/2,0]) 
-                        rotate([90,0,0]) 
-                        write(Text[i],
-                            h=FontSize,
-                            t=FontHeight,
-                            font=FontStyle,
-                            space=1,
-                            center=true);
-					}
-    }
-				}
-			}
+        rotate([-90,0,0])
+        union() {
+            difference(){
+                translate([-FontSize/3+(FontSize/3 - FontSize/5)/2,0,0])
+                rotate([90,0,0]) 
+                cylinder(r=FontSize/2.5, h=Plate_Height, $fn=100, center=true);
+                translate([-FontSize/3+(FontSize/3 - FontSize/5)/2,0,0])
+                rotate([90,0,0])
+                cylinder(r=FontSize/4.25, h=Plate_Height + 1, center=true);
+            }
+            translate([(FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace)/2+FontSize/200,0,0]) 
+            cube([FontSize*len(Text)+FontSize*len(Text)/50*LetterSpace+FontSize/100, PlateHeight,FontSize/2],center=true);
+            translate([FontSize/2,0,0]) 
+            for ( i = [0 : len(Text) - 1] )	{
+                translate([FontSize*i+FontSize*i/50*LetterSpace,-FontHeight/2+Plate_Height/2,0]) 
+                rotate([90,0,0]) 
+                write(Text[i],h=FontSize,
+                t=FontHeight,font=FontStyle,space=1,center=true);
+            }
+       }
+         
 	}	
 }
 
