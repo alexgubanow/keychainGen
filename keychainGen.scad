@@ -127,7 +127,7 @@ module coinKeychain(Text, FontSize, FontStyle, FontHeight, plateHeight){
                     cylinder(r=FontSize/2.5, h=plateHeight + 1, center=true);
 					for ( i = [0 : len(Text) - 1] )	{
 						translate([
-                        -len(Text)*4+(FontSize*i),
+                        -len(Text)*FontSize/3+(FontSize*i),
                         -Plate_Height,0])
                         rotate([90,0,0])
                         write(Text[i],
