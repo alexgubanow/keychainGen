@@ -86,12 +86,12 @@ module classicKeychain(Text, FontSize, FontStyle, Plate_Height,Text_Y_offset){
 			rotate([-90,0,0]){
 				union() {
 					for ( i = [0 : len(Text) - 1] )	{
-						translate([FontSize*i,0,
-                        -(FontSize - 4)]) 
+						translate([FontSize*i,0,0]) 
                         cube([FontSize, Plate_Height,
                         FontSize/6],
                         center=true);
-						translate([FontSize*i,0,Text_Y_offset]) 
+						translate([FontSize*i,0,
+                        FontSize/3 + FontSize/6 + Text_Y_offset]) 
                         rotate([90,0,0]) 
                         write(Text[i],
                             h=FontSize,
@@ -101,10 +101,10 @@ module classicKeychain(Text, FontSize, FontStyle, Plate_Height,Text_Y_offset){
                             center=true);
 					}
 					difference(){
-		translate([-FontSize + FontSize/5,0,-(FontSize - 4)])
+		translate([-FontSize + FontSize/5,0,0])
         rotate([90,0,0]) 
         cylinder(r=FontSize/3, h=Plate_Height, $fn=100, center=true);
-		translate([-FontSize + FontSize/5,0,-(FontSize - 4)]) 
+		translate([-FontSize + FontSize/5,0,0]) 
         rotate([90,0,0])
         cylinder(r=FontSize/5, h=Plate_Height + 1, center=true);
         }
