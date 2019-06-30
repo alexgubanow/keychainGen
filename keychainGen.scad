@@ -57,7 +57,7 @@ Font_Style = "write/orbitron.dxf"; //["write/Letters.dxf":Letters, "write/BlackR
 //Choose font size
 Font_Size = 12; //[1:50]
 //Choose font height
-Font_Height = 2; //[1:50]
+Font_Height = 2; //[-1:50]
 
 /////////////////////////
 // Beat it Customizer //
